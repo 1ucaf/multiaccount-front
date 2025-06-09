@@ -43,7 +43,7 @@ type ViewProviderProps = {
   onChangeColorMode: (colorMode: 'light' | 'dark') => void;
 }
 const ViewProvider: React.FC<ViewProviderProps> = ({ children, onChangeColorMode }) => {
-  const { user, isAdmin } = useAuthContext();
+  const { user, isAdmin, isMaster } = useAuthContext();
   const location = useLocation();
   const currentPage = useMemo(() => (menuListMap[location.pathname]?.label), [location]);
 
@@ -93,7 +93,7 @@ const ViewProvider: React.FC<ViewProviderProps> = ({ children, onChangeColorMode
       }}
     >
       <Layout
-        {...{ currentPage, isAdmin, user, onChangeColorMode }}
+        {...{ currentPage, isAdmin, user, isMaster, onChangeColorMode }}
       >
         {children}
         <Notification {...notification} />

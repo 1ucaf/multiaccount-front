@@ -1,9 +1,10 @@
-import { AutoStories, Logout, Home, Group } from '@mui/icons-material'
+import { AutoStories, Logout, Home, Group, ManageAccounts } from '@mui/icons-material'
 import { MenuItem, MenuList } from '../types/MenuList'
 
 export const menuList: MenuList = {
   top: [
     { label: 'Home', path: '/', Icon: Home, activeOnly: true },
+    { label: 'Accounts', path: '/accounts', Icon: ManageAccounts, masterOnly: true, adminOnly: true, activeOnly: true },
     { label: 'Users', path: '/users', Icon: Group, adminOnly: true, activeOnly: true },
     { label: 'Books', path: '/books', Icon: AutoStories, activeOnly: true },
   ],

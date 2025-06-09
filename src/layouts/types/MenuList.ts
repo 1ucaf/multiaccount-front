@@ -5,6 +5,7 @@ export type MenuItem = {
   path: string;
   Icon: SvgIconComponent; // Assuming your icons are React components, or adjust the type to fit your icons
   adminOnly?: boolean;
+  masterOnly?: boolean;
   activeOnly?: boolean;
 };
 

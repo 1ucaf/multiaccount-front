@@ -23,6 +23,7 @@ export const useAuth = () => {
     staleTime: Infinity,
     retry: false,
   });
+  const invalidateAllQueries = () => queryClient.invalidateQueries();
   const invalidateAuth = () => {
     queryClient.invalidateQueries({
       queryKey: ['auth'],
@@ -50,5 +51,6 @@ export const useAuth = () => {
     loginMutation,
     signUpMutation,
     invalidateAuth,
+    invalidateAllQueries,
   }
 }

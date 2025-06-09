@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 export type AuthContextType = {
   user?: IGetAuthResponse;
   isAdmin?: boolean;
+  isMaster?: boolean;
   login: (data: LogInFormType) => Promise<void>;
   signUp: (data: SignUpFormType) => Promise<void>;
   logout: () => void;
@@ -30,7 +31,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     user,
     loginMutation,
     signUpMutation,
-    invalidateAuth,
+    invalidateAllQueries,
   } = useAuth();
   const login = async (data: LoginDTO) => {
     loginMutation.mutate(data);
@@ -40,13 +41,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
   }
   const logout = () => {
     localStorage.removeItem('token');
-    invalidateAuth();
+    invalidateAllQueries();
   }
   useEffect(()=>{
     if(error) {
       navigate('/login')
     };
-  }, [error])
+  }, [error]);
+  const isMaster = useMemo(() => user?.roles?.some(role => role === Role.MASTER), [user]);
   const isAdmin = useMemo(() => user?.roles?.some(role => (
     role === Role.ADMIN ||
     role === Role.OWNER ||
@@ -56,6 +58,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     <AuthContext.Provider value={{
       user: error ? undefined : user,
       isAdmin,
+      isMaster,
       login,
       signUp,
       logout,

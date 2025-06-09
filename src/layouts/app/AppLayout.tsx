@@ -8,33 +8,40 @@ import { useNavigate } from 'react-router'
 import { IGetAuthResponse } from '../../lib/responses/getAuth'
 
 type AppLayoutProps = {
-  children: React.ReactNode,
-  currentPage: string,
+  children: React.ReactNode;
+  currentPage: string;
   isAdmin?: boolean;
+  isMaster?: boolean;
   user?: IGetAuthResponse;
-  onChangeColorMode: (colorMode: 'light' | 'dark') => void
+  onChangeColorMode: (colorMode: 'light' | 'dark') => void;
 }
 
-const AppLayout: React.FC<AppLayoutProps> = ({children, currentPage, isAdmin, user, onChangeColorMode}) => {
+const AppLayout: React.FC<AppLayoutProps> = ({children, currentPage, isAdmin, isMaster, user, onChangeColorMode}) => {
   const navigate = useNavigate()
   const goTo = (url: string)=> () => {
     navigate(url);
   }
   const menuItems = useMemo(() => {
+    if(isMaster) {
+      return {...menuList};
+    }
     if(isAdmin) {
-      return { ...menuList };
+      return { 
+        top: menuList.top.filter(item => !item.masterOnly),
+        bottom: menuList.bottom.filter(item => !item.masterOnly),
+      };
     }
     if(user?.isActive) {
       return {
-        top: menuList.top.filter(item => !item.adminOnly),
-        bottom: menuList.bottom.filter(item => !item.adminOnly),
+        top: menuList.top.filter(item => !item.adminOnly && !item.masterOnly),
+        bottom: menuList.bottom.filter(item => !item.adminOnly && !item.masterOnly),
       }
     }
     return {
-      top: menuList.top.filter(item => !item.adminOnly && !item.activeOnly),
-      bottom: menuList.bottom.filter(item => !item.adminOnly && !item.activeOnly),
+      top: menuList.top.filter(item => !item.adminOnly && !item.activeOnly && !item.masterOnly),
+      bottom: menuList.bottom.filter(item => !item.adminOnly && !item.activeOnly && !item.masterOnly),
     };
-  }, [isAdmin]);
+  }, [isAdmin, isMaster, user]);
   return (
     <Box id='layout'>
       <NavBar currentPage={currentPage} goTo={goTo} user={user} onChangeColorMode={onChangeColorMode} />
