@@ -70,7 +70,13 @@ const EditUserModal: React.FC<EditUserModalProps> = ({user}) => {
           helperText={errors.name?.message}
         />
       </FormControl>
-      <Button onClick={handleSubmit(onSubmit)} loading={isModificationPending}>Save</Button>
+      <Button
+        onClick={handleSubmit(onSubmit)}
+        disabled={isModificationPending}
+        loading={isModificationPending}
+      >
+        Save
+      </Button>
     </Box>
   )
 }
