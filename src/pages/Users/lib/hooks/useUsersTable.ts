@@ -16,7 +16,7 @@ export const useUsersTable = () => {
   const { user } = useAuthContext();
   const pagination = usePagination();
   const [countState, setCountState] = useState(0);
-  const { activateUser, editUser, userPermissions, makeAdmin, removeAdmin, deleteUser } = useUsersTableActions();
+  const { editUser, userPermissions, makeAdmin, removeAdmin, deleteUser } = useUsersTableActions();
   const { query } = pagination;
   const { data, isLoading, error } = useUsers(query);
   const {
@@ -107,11 +107,6 @@ export const useUsersTable = () => {
       label: 'Edit',
       onClick: editUser,
       condition: canEdit,
-    },
-    {
-      label: 'Activate',
-      onClick: activateUser,
-      condition: row => !row.isActive,
     },
     {
       label: 'Permissions',
