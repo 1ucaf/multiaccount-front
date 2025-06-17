@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useAuthContext } from '../../lib/hooks/contextHooks/useAuthContext';
 import { SignUpFormType } from '../../lib/types/forms/SignUpForm';
 import { useDefaultErrorHandler } from '../../lib/hooks/useDefaultErrorHandler';
+import PasswordField from '../../components/Form/Inputs/Password';
 
 type SignUpProps = {}
 
@@ -43,37 +44,37 @@ const SignUp:React.FC<SignUpProps> = () => {
           variant='outlined'
           autoComplete='email'
           fullWidth
-          {...register('email', {required: true})}
+          {...register('email', {required: 'Email is required'})}
         />
         <TextField
           label='Name'
           variant='outlined'
           autoComplete='name'
           fullWidth
-          {...register('name', {required: true})}
+          {...register('name', {required: 'Name is required'})}
         />
         <TextField
           label='Company Name'
           variant='outlined'
           autoComplete='company_name'
           fullWidth
-          {...register('company_name', {required: true})}
+          {...register('company_name', {required: 'Company Name is required'})}
         />
-        <TextField
+        <PasswordField
           label='Password'
           variant='outlined'
           type='password'
           autoComplete='password'
           fullWidth
-          {...register('password', {required: true})}
+          {...register('password', {required: 'Password is required'})}
         />
-        <TextField
+        <PasswordField
           label='Confirm Password'
           variant='outlined'
           type='password'
           autoComplete='confirm-password'
           fullWidth
-          {...register('confirmPassword', {required: true})}
+          {...register('confirmPassword', {required: 'Password is required'})}
         />
         <Button variant='contained' disabled={isSignUpPending} loading={isSignUpPending} onClick={handleSubmit(signUp)}>Sign Up</Button>
       </Box>

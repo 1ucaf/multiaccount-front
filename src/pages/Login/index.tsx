@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useAuthContext } from '../../lib/hooks/contextHooks/useAuthContext'
 import { LogInFormType } from '../../lib/types/forms/LoginForm'
 import { useDefaultErrorHandler } from '../../lib/hooks/useDefaultErrorHandler'
+import PasswordField from '../../components/Form/Inputs/Password'
 
 type LoginProps = {}
 
@@ -13,6 +14,7 @@ const Login: React.FC<LoginProps> = () => {
   const {
     handleSubmit,
     register,
+    formState: { errors },
   } = useForm<LogInFormType>({
     defaultValues: {
       email: '',
@@ -40,17 +42,26 @@ const Login: React.FC<LoginProps> = () => {
           variant='outlined'
           autoComplete='email'
           fullWidth
-          {...register('email', {required: true})}
+          {...register('email', {required: 'Email is required'})}
+          error={!!errors.email}
+          helperText={errors.email?.message}
         />
-        <TextField
+        <PasswordField
           label='Password'
           variant='outlined'
           type='password'
           autoComplete='password'
           fullWidth
-          {...register('password', {required: true})}
+          {...register('password', {required: 'Password is required'})}
+          error={!!errors.password}
+          helperText={errors.password?.message}
         />
-        <Button variant='contained' loading={isLoginPending} disabled={isLoginPending} onClick={handleSubmit(login)}>
+        <Button
+          variant='contained'
+          loading={isLoginPending}
+          disabled={isLoginPending}
+          onClick={handleSubmit(login)}
+        >
           Login
         </Button>
       </Box>
