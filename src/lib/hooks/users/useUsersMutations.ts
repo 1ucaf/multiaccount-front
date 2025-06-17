@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { httpActivateUser, httpEditUser, httpEditUserPermissions } from "../../services/users"
+import { httpActivateUser, httpCreateUser, httpEditUser, httpEditUserPermissions } from "../../services/users"
 import { AxiosError, AxiosResponse } from "axios";
 import { APIBaseError } from "../../types/errors/apiBaseError.type";
 import { useDefaultErrorHandler } from "../useDefaultErrorHandler";
@@ -44,6 +44,19 @@ export const useUsersMutations = () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
     },
   })
+
+  const {
+    mutate: createUserMutate,
+    isSuccess: isCreateUserSuccess,
+    isError: isCreateUserError,
+    error: createUserError,
+    isPending: isCreateUserPending,
+  } = useMutation<AxiosResponse, AxiosError<APIBaseError>, any>({
+    mutationFn: httpCreateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  })
   useDefaultErrorHandler(activationError || modificationError || editUserPermissionsError);
   return {
     activationMutate,
@@ -61,5 +74,10 @@ export const useUsersMutations = () => {
     isEditUserPermissionsError,
     editUserPermissionsError,
     isEditUserPermissionsPending,
+    createUserMutate,
+    isCreateUserSuccess,
+    isCreateUserError,
+    createUserError,
+    isCreateUserPending,
   }
 }

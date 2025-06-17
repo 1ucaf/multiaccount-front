@@ -23,3 +23,7 @@ export const httpActivateUser = ({userId, roles}: {userId: string, roles: Role[]
 
 export const httpEditUserPermissions = ({userId, permissions}: {userId: string, permissions: string[]}) =>
   axios.patch(`/users/permissions/${userId}`, permissions);
+
+export const httpCreateUser = (
+  { name, email, password }: {name: string, email: string, password: string},
+) => axios.post(`/users`, { name, email, password });

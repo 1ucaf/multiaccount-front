@@ -1,12 +1,15 @@
 import React from 'react'
 import { userHeaders } from './lib/constants/headers';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import Table from '../../components/Table';
 import { useUsersTable } from './lib/hooks/useUsersTable';
+import CreateUserModal from './components/CreateUserModal';
+import { useViewContext } from '../../lib/hooks/contextHooks/useViewContext';
 
 type UsersProps = {}
 
 const Users: React.FC<UsersProps> = () => {
+  const { modal } = useViewContext();
   const {
     formattedUsers,
     isLoading,
@@ -26,7 +29,20 @@ const Users: React.FC<UsersProps> = () => {
   } = pagination;
   
   return (
-    <Box padding={4}>
+    <Box padding={4} display={'flex'} flexDirection={'column'}>
+      <Button
+        sx={{
+          mb: 2,
+          alignSelf: 'flex-end',
+        }}
+        onClick={() => modal.show({
+          title: 'Create User',
+          Component: CreateUserModal,
+        })}
+        variant="contained"
+      >
+        Create User
+      </Button>
       <Table
         headers={userHeaders}
         rows={formattedUsers}
