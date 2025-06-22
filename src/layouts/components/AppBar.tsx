@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Box, Toolbar, Typography, Button, useTheme } from '@mui/material'
 import { IGetAuthResponse } from '../../lib/responses/getAuth';
 import { DarkModeSwitch } from '../../components/DarkModeSwitch';
+import { UserOptionsButton } from './UserOptionsButton';
 
 type NavBarProps = {
   goTo: (path: string) => () => void;
@@ -29,7 +30,7 @@ const NavBar: React.FC<NavBarProps> = ({
           </Typography>
           {
             user ?
-            <Typography variant="h6" component="div">{user.name}</Typography> :
+            <UserOptionsButton name={user.name} /> :
             <>
               <Button onClick={goTo('/login')} color="inherit">Login</Button>
               <Button onClick={goTo('/signup')} color="inherit">Sign Up</Button>
