@@ -6,6 +6,7 @@ import Books from './pages/Books';
 import { ROUTES } from './lib/constants/routes';
 import Logout from './pages/Logout';
 import Users from './pages/Users';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path={ROUTES.books.path} element={<Books/>} />
         <Route path={ROUTES.logout.path} element={<Logout/>} />
         <Route path={ROUTES.users.path} element={<Users/>} />
+        <Route path={ROUTES.changepassword.path} element={<ChangePassword/>} />
       </Routes>
     </>
   )

@@ -4,12 +4,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { BrowserRouter } from "react-router";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AuthProvider from '../contexts/AuthContext';
-import ViewProvider from '../contexts/ViewContext';
+import { AuthProvider } from '../contexts/AuthContext';
 import { esES } from '@mui/x-data-grid/locales';
 import { esES as pickersesES } from '@mui/x-date-pickers/locales';
 import { esES as coreesES } from '@mui/material/locale';
 import 'dayjs/locale/en-gb';
+import { ViewProvider } from '../contexts/ViewContext';
 
 type ProvidersProp = {
   children: React.ReactNode;

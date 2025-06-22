@@ -23,4 +23,8 @@ export const ROUTES = {
     path: '/users',
     title: 'Users',
   },
+  changepassword: {
+    path: '/change-password',
+    title: 'Change Password',
+  },
 }

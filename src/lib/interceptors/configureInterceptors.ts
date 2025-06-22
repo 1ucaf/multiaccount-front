@@ -23,6 +23,7 @@ axios.interceptors.response.use(
     if(
       (error.response?.status === 401 || error.response?.status === 403) &&
       error.response?.config?.url !== "/auth" &&
+      error.response?.config?.url !== "/auth/change-password" &&
       window.location.pathname !== "/login" &&
       window.location.pathname !== "/logout" &&
       window.location.pathname !== "/signup"

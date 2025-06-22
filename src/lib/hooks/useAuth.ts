@@ -1,11 +1,12 @@
 import { AxiosError, AxiosResponse } from "axios"
-import { httpGETAuth, httpPOSTLogin, httpPOSTSignUp } from "../services/auth"
+import { httpGETAuth, httpPOSTChangePassword, httpPOSTLogin, httpPOSTSignUp } from "../services/auth"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { IGetAuthResponse } from "../responses/getAuth"
 import { LoginDTO } from "../dto/LoginDTO"
 import { SignUpDTO } from "../dto/SignUpDTO"
 import { useNavigate } from "react-router"
 import { APIBaseError } from "../types/errors/apiBaseError.type"
+import { ChangePasswordDTO } from "../dto/ChangePasswordDTO"
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -25,7 +26,10 @@ export const useAuth = () => {
     retry: false,
     enabled: !!localStorage.getItem('token'),
   });
-  const invalidateAllQueries = () => queryClient.invalidateQueries();
+  const invalidateAllQueries = () => {
+    queryClient.invalidateQueries();
+    queryClient.removeQueries();
+  };
   const invalidateAuth = () => {
     queryClient.invalidateQueries({
       queryKey: ['auth'],
@@ -46,12 +50,19 @@ export const useAuth = () => {
       onSuccessAuth(data.data.token);
     },
   });
+  const changePasswordMutation = useMutation<AxiosResponse<any>, AxiosError<APIBaseError>, ChangePasswordDTO>({
+    mutationFn: (data: ChangePasswordDTO) => httpPOSTChangePassword(data),
+    onSuccess: () => {
+      navigate('/logout');
+    },
+  });
   return {
     user: response?.data,
     isLoading,
     error,
     loginMutation,
     signUpMutation,
+    changePasswordMutation,
     invalidateAuth,
     invalidateAllQueries,
   }
