@@ -29,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({
           </Typography>
           {
             user ?
-            <Typography variant="h6" component="div">User: {user.name}</Typography> :
+            <Typography variant="h6" component="div">{user.name}</Typography> :
             <>
               <Button onClick={goTo('/login')} color="inherit">Login</Button>
               <Button onClick={goTo('/signup')} color="inherit">Sign Up</Button>

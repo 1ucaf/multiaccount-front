@@ -1,4 +1,4 @@
-import { ViewContextType } from "..";
+import { ViewContextType } from "../types/viewContext.type";
 
 export const initialContextValue: ViewContextType = {
   notification: {

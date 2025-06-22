@@ -1,4 +1,4 @@
-import { AuthContextType } from "..";
+import { AuthContextType } from "../types/authContext.type";
 
 export const initialContextValue: AuthContextType = {
   login: async () => {
@@ -9,5 +9,8 @@ export const initialContextValue: AuthContextType = {
   },
   logout: async () => {
     throw new Error("AuthContext: logout function is not implemented.");
+  },
+  changePassword: async () => {
+    throw new Error("AuthContext: changePassword function is not implemented.");
   },
 };
