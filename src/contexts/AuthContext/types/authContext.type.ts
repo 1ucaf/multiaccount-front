@@ -1,9 +1,10 @@
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { ChangePasswordDTO } from "../../../lib/dto/ChangePasswordDTO";
 import { IGetAuthResponse } from "../../../lib/responses/getAuth";
 import { LogInFormType } from "../../../lib/types/forms/LoginForm";
 import { SignUpFormType } from "../../../lib/types/forms/SignUpForm";
 import { APIBaseError } from "../../../lib/types/errors/apiBaseError.type";
+import { UseMutationResult } from "@tanstack/react-query";
 
 export type AuthContextType = {
   user?: IGetAuthResponse;
@@ -20,4 +21,6 @@ export type AuthContextType = {
   isChangePasswordPending?: boolean;
   isChangePasswordSuccess?: boolean;
   changePasswordError?: AxiosError<APIBaseError, any> | null;
+  impersonateAccountMutation: UseMutationResult<AxiosResponse, AxiosError<APIBaseError>, string>
+  impersonateUserMutation: UseMutationResult<AxiosResponse, AxiosError<APIBaseError>, string>
 }

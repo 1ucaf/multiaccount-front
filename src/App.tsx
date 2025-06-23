@@ -7,6 +7,8 @@ import { ROUTES } from './lib/constants/routes';
 import Logout from './pages/Logout';
 import Users from './pages/Users';
 import ChangePassword from './pages/ChangePassword';
+import Accounts from './pages/Accounts';
+import AccountUsers from './pages/Accounts/AccountUsers';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path={ROUTES.logout.path} element={<Logout/>} />
         <Route path={ROUTES.users.path} element={<Users/>} />
         <Route path={ROUTES.changepassword.path} element={<ChangePassword/>} />
+        <Route path={ROUTES.accounts.path} element={<Accounts/>} />
+        <Route path={ROUTES.accountUsers.path} element={<AccountUsers/>} />
       </Routes>
     </>
   )

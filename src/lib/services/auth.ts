@@ -13,3 +13,9 @@ export const httpPOSTSignUp = (body: SignUpDTO) =>
 
 export const httpPOSTChangePassword = (body: ChangePasswordDTO) =>
   axios.post('/auth/change-password', body)
+
+export const httpImpersonateAccount = (accountId: string) =>
+  axios.post(`/auth/impersonate/account/${accountId}`);
+
+export const httpImpersonateUser = (userId: string) =>
+  axios.post(`/auth/impersonate/user/${userId}`);

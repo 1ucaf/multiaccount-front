@@ -1,5 +1,11 @@
 import axios from "axios";
-export type GetBooksQueryType = { page: number, pageSize: number, search?: string, startDate?: string, endDate?: string };
+export type GetBooksQueryType = {
+  page: number,
+  pageSize: number,
+  search?: string,
+  startDate?: string,
+  endDate?: string
+};
 
 export const httpGETBooks = (query: GetBooksQueryType) => axios.get('/books', { params: query });
 

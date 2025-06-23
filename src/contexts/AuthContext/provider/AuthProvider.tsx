@@ -20,6 +20,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     loginMutation,
     signUpMutation,
     changePasswordMutation,
+    impersonateAccountMutation,
+    impersonateUserMutation,
     invalidateAllQueries,
   } = useAuth();
   useEffect(() => {
@@ -37,7 +39,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     signUpMutation.mutate(data);
   }
   const logout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     invalidateAllQueries();
     navigate('/login');
   }
@@ -68,6 +70,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
       isChangePasswordPending: changePasswordMutation.isPending,
       isChangePasswordSuccess: changePasswordMutation.isSuccess,
       changePasswordError: changePasswordMutation.error,
+      impersonateAccountMutation,
+      impersonateUserMutation,
     }}>
       {children}
     </AuthContext.Provider>

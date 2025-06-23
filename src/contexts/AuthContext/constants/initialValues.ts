@@ -13,4 +13,6 @@ export const initialContextValue: AuthContextType = {
   changePassword: async () => {
     throw new Error("AuthContext: changePassword function is not implemented.");
   },
+  impersonateAccountMutation: {} as any,
+  impersonateUserMutation: {} as any
 };

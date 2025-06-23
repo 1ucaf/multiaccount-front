@@ -23,6 +23,14 @@ export const ROUTES = {
     path: '/users',
     title: 'Users',
   },
+  accounts: {
+    path: '/accounts',
+    title: 'Accounts',
+  },
+  accountUsers: {
+    path: '/accounts/:accountId/users',
+    title: 'Account Users',
+  },
   changepassword: {
     path: '/change-password',
     title: 'Change Password',

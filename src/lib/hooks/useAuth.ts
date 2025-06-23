@@ -1,19 +1,35 @@
 import { AxiosError, AxiosResponse } from "axios"
-import { httpGETAuth, httpPOSTChangePassword, httpPOSTLogin, httpPOSTSignUp } from "../services/auth"
+import { httpGETAuth, httpImpersonateAccount, httpImpersonateUser, httpPOSTChangePassword, httpPOSTLogin, httpPOSTSignUp } from "../services/auth"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { IGetAuthResponse } from "../responses/getAuth"
 import { LoginDTO } from "../dto/LoginDTO"
 import { SignUpDTO } from "../dto/SignUpDTO"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { APIBaseError } from "../types/errors/apiBaseError.type"
 import { ChangePasswordDTO } from "../dto/ChangePasswordDTO"
+import { useEffect, useState } from "react"
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [impersonating, setImpersonating] = useState(false);
   const onSuccessAuth = (token: string) => {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     navigate('/');
   };
+  const onSuccessImpersonate = (token: string) => {
+    sessionStorage.setItem('token', token);
+    navigate('/');
+    setImpersonating(true);
+  }
+
+  useEffect(() => {
+    if(location.pathname === '/' && impersonating) {
+      invalidateAllQueries();
+      setImpersonating(false);
+    }
+  }, [impersonating, location.pathname]);
+
   const queryClient = useQueryClient();
   const {
     data: response,
@@ -24,7 +40,7 @@ export const useAuth = () => {
     queryFn: httpGETAuth,
     staleTime: Infinity,
     retry: false,
-    enabled: !!localStorage.getItem('token'),
+    enabled: !!sessionStorage.getItem('token'),
   });
   const invalidateAllQueries = () => {
     queryClient.invalidateQueries();
@@ -56,6 +72,18 @@ export const useAuth = () => {
       navigate('/logout');
     },
   });
+  const impersonateAccountMutation = useMutation<AxiosResponse<any>, AxiosError<APIBaseError>, string>({
+    mutationFn: httpImpersonateAccount,
+    onSuccess: (data) => {
+      onSuccessImpersonate(data.data.token);
+    },
+  })
+  const impersonateUserMutation = useMutation<AxiosResponse<any>, AxiosError<APIBaseError>, string>({
+    mutationFn: httpImpersonateUser,
+    onSuccess: (data) => {
+      onSuccessImpersonate(data.data.token);
+    },
+  })
   return {
     user: response?.data,
     isLoading,
@@ -63,6 +91,8 @@ export const useAuth = () => {
     loginMutation,
     signUpMutation,
     changePasswordMutation,
+    impersonateAccountMutation,
+    impersonateUserMutation,
     invalidateAuth,
     invalidateAllQueries,
   }

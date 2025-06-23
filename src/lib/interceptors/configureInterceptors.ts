@@ -4,7 +4,7 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVICE_URL;
 
 axios.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -28,7 +28,7 @@ axios.interceptors.response.use(
       window.location.pathname !== "/logout" &&
       window.location.pathname !== "/signup"
     ) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       window.location.assign("/login");
       return Promise.reject(error);
     }
