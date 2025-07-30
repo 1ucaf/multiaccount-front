@@ -7,6 +7,7 @@ export type MenuItem = {
   adminOnly?: boolean;
   masterOnly?: boolean;
   activeOnly?: boolean;
+  permissions?: string; // Optional, for permission-based access
 };
 
 export type MenuList = {

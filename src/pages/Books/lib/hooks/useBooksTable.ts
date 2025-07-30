@@ -5,9 +5,11 @@ import { formatBooks } from "../utils/formatBooks";
 import { DatesFilterPopup } from "../../../../components/CommonFiltersPopups/DateCreated";
 import { TableActionType } from "../../../../components/Table/lib/types";
 import { useBooksTableActions } from "./useBooksTableActions";
+import { useCurrentUserPermissions } from "../../../../lib/hooks/useCurrentUserPermissions";
 
 export const useBooksTable = () => {
   const { onDeleteBook, onEditBook } = useBooksTableActions();
+  const { permissions: { books: { edit: canEdit, delete: canDelete } } } = useCurrentUserPermissions();
   const pagination = usePagination();
   const [countState, setCountState] = useState(0);
   const { query } = pagination;
@@ -36,10 +38,12 @@ export const useBooksTable = () => {
     {
       label: 'Edit',
       onClick: onEditBook,
+      condition: _ => canEdit,
     },
     {
       label: 'Delete',
       onClick: onDeleteBook,
+      condition: _ => canDelete,
     }
   ] as TableActionType[];
   return {

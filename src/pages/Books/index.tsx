@@ -5,11 +5,13 @@ import Table from '../../components/Table';
 import { useBooksTable } from './lib/hooks/useBooksTable';
 import { booksHeaders } from './lib/constants/headers';
 import BookInformationModal from './components/BookInformationModal';
+import { useCurrentUserPermissions } from '../../lib/hooks/useCurrentUserPermissions';
 
 type BooksProps = {}
 
 const Books: React.FC<BooksProps> = () => {
   const { modal } = useViewContext();
+  const { permissions: { books: { create: canCreate }} } = useCurrentUserPermissions();
   const {
     count,
     formattedBooks,
@@ -28,19 +30,21 @@ const Books: React.FC<BooksProps> = () => {
   } = pagination;
   return (
     <Box padding={4} display={'flex'} flexDirection={'column'}>
-      <Button
-        sx={{
-          mb: 2,
-          alignSelf: 'flex-end',
-        }}
-        onClick={() => modal.show({
-          title: 'Create Book',
-          Component: BookInformationModal,
-        })}
-        variant="contained"
-      >
-        Create Book
-      </Button>
+      { canCreate &&
+        <Button
+          sx={{
+            mb: 2,
+            alignSelf: 'flex-end',
+          }}
+          onClick={() => modal.show({
+            title: 'Create Book',
+            Component: BookInformationModal,
+          })}
+          variant="contained"
+        >
+          Create Book
+        </Button>
+      }
       <Table
         rows={formattedBooks || []}
         loading={isLoading}

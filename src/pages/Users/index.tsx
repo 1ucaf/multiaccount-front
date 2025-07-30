@@ -5,11 +5,13 @@ import Table from '../../components/Table';
 import { useUsersTable } from './lib/hooks/useUsersTable';
 import CreateUserModal from './components/CreateUserModal';
 import { useViewContext } from '../../lib/hooks/contextHooks/useViewContext';
+import { useCurrentUserPermissions } from '../../lib/hooks/useCurrentUserPermissions';
 
 type UsersProps = {}
 
 const Users: React.FC<UsersProps> = () => {
   const { modal } = useViewContext();
+  const { permissions: { users: { create: canCreate }} } = useCurrentUserPermissions();
   const {
     formattedUsers,
     isLoading,
@@ -30,19 +32,21 @@ const Users: React.FC<UsersProps> = () => {
   
   return (
     <Box padding={4} display={'flex'} flexDirection={'column'}>
-      <Button
-        sx={{
-          mb: 2,
-          alignSelf: 'flex-end',
-        }}
-        onClick={() => modal.show({
-          title: 'Create User',
-          Component: CreateUserModal,
-        })}
-        variant="contained"
-      >
-        Create User
-      </Button>
+      { canCreate &&
+        <Button
+          sx={{
+            mb: 2,
+            alignSelf: 'flex-end',
+          }}
+          onClick={() => modal.show({
+            title: 'Create User',
+            Component: CreateUserModal,
+          })}
+          variant="contained"
+        >
+          Create User
+        </Button>
+      }
       <Table
         headers={userHeaders}
         rows={formattedUsers}

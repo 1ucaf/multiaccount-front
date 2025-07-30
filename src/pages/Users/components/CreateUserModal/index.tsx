@@ -42,7 +42,7 @@ const CreateUserModal = () => {
         modal.hide();
       }
       notification.show({
-        content: 'Error creating user',
+        content: createUserError?.response?.data?.message || 'Error creating user',
         severity: 'error',
       });
     }
