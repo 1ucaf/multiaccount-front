@@ -23,7 +23,7 @@ const NavBar: React.FC<NavBarProps> = ({
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar style={{ zIndex: theme.zIndex.drawer + 1 }} position="fixed">
+      <AppBar color="inherit" style={{ zIndex: theme.zIndex.drawer + 1 }} position="fixed">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {currentPage}
