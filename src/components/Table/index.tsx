@@ -56,7 +56,7 @@ const Table = <T extends TableRowType>({
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.md));
   // console.log(isMobile);
   const [filteredData, setFilteredData] = useState<T[] | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>(search?.searchTerm || '');
   const detectedHeaders = headers || Object.keys(rows[0] || {}).map((key) => ({
     name: key,
     label: key,

@@ -10,7 +10,8 @@ export type TableActionType<T = TableRowType> = {
 export type SearchPropType = {
   onType?: (value: string) => void;
   onClickSearchButton?: (term?: string) => void;
-  placeholder?: string
+  placeholder?: string;
+  searchTerm?: string;
 }
 export type PaginationPropType = {
   page: number;

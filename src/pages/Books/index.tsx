@@ -24,6 +24,7 @@ const Books: React.FC<BooksProps> = () => {
     page,
     setPage,
     pageSize,
+    search,
     setPageSize,
     setSearch,
     setFilters,
@@ -51,6 +52,7 @@ const Books: React.FC<BooksProps> = () => {
         headers={booksHeaders}
         search={{
           onClickSearchButton: (term) => setSearch(term || ''),
+          searchTerm: search,
         }}
         filter={{
           clearAllFilters: () => {

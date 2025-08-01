@@ -19,6 +19,7 @@ const AccountUsers = () => {
     page,
     setPage,
     pageSize,
+    search,
     setPageSize,
     setSearch,
     setFilters,
@@ -32,6 +33,7 @@ const AccountUsers = () => {
         filter={{ filtersList, clearAllFilters: () => setFilters({}) }}
         search={{
           onClickSearchButton: (term) => setSearch(term || ''),
+          searchTerm: search,
         }}
         pagination={{
           page: page,

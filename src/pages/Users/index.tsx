@@ -22,12 +22,13 @@ const Users: React.FC<UsersProps> = () => {
   } = useUsersTable();
 
   const {
-    setFilters,
-    setSearch,
     page,
     setPage,
     pageSize,
-    setPageSize
+    search,
+    setPageSize,
+    setSearch,
+    setFilters,
   } = pagination;
   
   return (
@@ -54,6 +55,7 @@ const Users: React.FC<UsersProps> = () => {
         filter={{ filtersList, clearAllFilters: () => setFilters({}) }}
         search={{
           onClickSearchButton: (term) => setSearch(term || ''),
+          searchTerm: search,
         }}
         pagination={{
           page: page,

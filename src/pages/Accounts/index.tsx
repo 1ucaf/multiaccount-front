@@ -16,6 +16,7 @@ const Accounts: React.FC = () => {
     page,
     setPage,
     pageSize,
+    search,
     setPageSize,
     setSearch,
     setFilters,
@@ -28,6 +29,7 @@ const Accounts: React.FC = () => {
         headers={accountsHeaders}
         search={{
           onClickSearchButton: (term) => setSearch(term || ''),
+          searchTerm: search,
         }}
         filter={{
           clearAllFilters: () => {
